@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Making Gallinée Viral in Spain — Digital Communication Strategy 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#1B2A4D; --ink-2:#26365e;
+    --cream:#FBF4EE; --cream-2:#FDF8F3;
+    --rose:#E3A296; --rose-strong:#D98C7E;
+    --blush:#F3C9BB; --blush-soft:#F8E2D9;
+    --sand:#E7D4B2;
+    --line:rgba(27,42,77,.14);
+    --shadow:0 18px 50px -28px rgba(27,42,77,.45);
+    --serif:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --sans:'Jost', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --navh:62px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased}
+
+  /* ---------- type ---------- */
+  .eyebrow{font-weight:500;letter-spacing:.34em;text-transform:uppercase;font-size:clamp(.62rem,1vw,.78rem);color:var(--rose-strong);margin-bottom:1.1rem}
+  h1{font-family:var(--serif);font-weight:500;line-height:1.02;letter-spacing:.01em;font-size:clamp(2.7rem,7vw,6rem);color:var(--ink)}
+  h2{font-family:var(--serif);font-weight:500;line-height:1.05;letter-spacing:.012em;font-size:clamp(2rem,4.4vw,3.4rem);color:var(--ink);margin-bottom:.25em}
+  h2 .alt{font-style:italic;color:var(--rose-strong)}
+  h3{font-family:var(--serif);font-weight:600;font-size:1.5rem;color:var(--ink)}
+  .lede{font-size:clamp(1rem,1.4vw,1.28rem);font-weight:300;line-height:1.55;max-width:62ch;color:var(--ink-2)}
+  .sub{font-family:var(--serif);font-style:italic;font-size:clamp(1.05rem,1.7vw,1.5rem);color:var(--ink-2)}
+  p{font-weight:300;line-height:1.55}
+  strong{font-weight:600}
+
+  /* ---------- top nav ---------- */
+  .nav{position:sticky;top:0;height:var(--navh);background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1.2rem,3vw,2.4rem);z-index:60}
+  .nav .brand{font-family:var(--serif);font-size:1.45rem;color:#fff;text-decoration:none;display:flex;align-items:baseline;gap:.5rem;line-height:1}
+  .nav .brand span{font-family:var(--sans);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#9fb0d6;font-weight:500}
+  .nav-links{display:flex;gap:.2rem}
+  .nav-links a{text-decoration:none;color:#c2cbe2;font-size:.86rem;font-weight:400;letter-spacing:.02em;padding:.5rem .85rem;border-radius:999px;transition:background .2s,color .2s}
+  .nav-links a:hover{color:#fff;background:rgba(255,255,255,.08)}
+  .nav-links a.active{color:var(--ink);background:var(--blush)}
+  .burger{display:none;background:none;border:0;color:#fff;cursor:pointer;padding:.4rem}
+  .progress{position:fixed;top:var(--navh);left:0;right:0;height:3px;background:var(--rose);width:0;z-index:55;transition:width .12s linear}
+
+  /* ---------- pages ---------- */
+  .page{display:none}
+  .page.active{display:block;animation:pageIn .45s ease}
+  @keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  .band{position:relative;padding:clamp(3.4rem,7vh,5.6rem) 0;overflow:hidden}
+  .band.tight{padding:clamp(2.2rem,4vh,3.4rem) 0}
+  .wrap{width:100%;max-width:1140px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3.2rem);position:relative;z-index:2}
+  .band.alt{background:#fff}
+  .band.peach{background:var(--blush-soft)}
+  .band.sand{background:linear-gradient(160deg,#fff 0%, #F4E6D5 100%)}
+  .band.hero{min-height:calc(86vh - var(--navh));display:flex;align-items:center;background:linear-gradient(160deg, var(--cream) 0%, #F6DDD0 100%)}
+  .band.dark{background:var(--ink);color:var(--cream)}
+  .band.dark h2,.band.dark .quote-xl{color:#fff}
+  .band.dark .eyebrow{color:var(--blush)}
+  .band.footer{background:var(--ink);color:var(--cream);text-align:center}
+  .band.footer .title-group{color:#cdd6ea}
+
+  /* page intro eyebrow with big number */
+  .page-tag{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1rem}
+  .page-tag .pn{font-family:var(--serif);font-size:2.4rem;color:var(--rose);line-height:1;font-weight:600}
+  .page-tag .pe{font-weight:500;letter-spacing:.3em;text-transform:uppercase;font-size:.72rem;color:var(--rose-strong)}
+
+  /* ---------- hero / title ---------- */
+  .title-grid{display:flex;flex-direction:column;gap:1.3rem}
+  .title-grid h1 .line{display:block}
+  .title-rule{width:120px;height:2px;background:var(--ink);margin:.3rem 0 .1rem}
+  .title-meta{font-size:clamp(.95rem,1.4vw,1.2rem);font-weight:300;color:var(--ink-2);letter-spacing:.02em}
+  .title-group{margin-top:1.4rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;font-size:.8rem;color:var(--rose-strong)}
+
+  /* ---------- home cards ---------- */
+  .home-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.1rem;margin-top:.5rem}
+  .home-card{display:flex;flex-direction:column;gap:.5rem;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:18px;padding:1.5rem 1.5rem 1.3rem;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;position:relative;overflow:hidden}
+  .home-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:var(--rose)}
+  .home-card .hc-num{font-family:var(--serif);font-size:1.4rem;color:var(--rose);font-weight:600}
+  .home-card h3{font-size:1.5rem;line-height:1.1}
+  .home-card p{font-weight:300;color:var(--ink-2);font-size:.96rem;flex:1}
+  .home-card .hc-go{font-size:.82rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--rose-strong);margin-top:.4rem}
+  .home-card::after{content:"";position:absolute;right:-30px;bottom:-30px;width:90px;height:90px;border-radius:50%;background:var(--blush-soft);opacity:0;transition:opacity .3s}
+  .home-card:hover::after{opacity:1}
+  .home-card *{position:relative;z-index:1}
+
+  /* ---------- shared components ---------- */
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,3vw,3rem);margin-top:2rem}
+  .stat{position:relative;padding-left:1.4rem}
+  .stat:not(:first-child)::before{content:"";position:absolute;left:0;top:.4rem;bottom:.4rem;width:1px;background:var(--rose)}
+  .stat .num{font-family:var(--serif);font-weight:500;font-size:clamp(2.6rem,5.5vw,4.4rem);line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+  .stat .lbl{margin-top:.5rem;font-weight:300;color:var(--ink-2);font-size:clamp(.9rem,1.2vw,1.05rem);line-height:1.35}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.4rem,4vw,3.4rem);margin-top:2rem}
+  .col-head{font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:.8rem;color:var(--ink);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--line)}
+  .col-head.neg{color:var(--rose-strong)}
+  .ticks{list-style:none;display:flex;flex-direction:column;gap:.8rem}
+  .ticks li{display:flex;gap:.7rem;align-items:flex-start;font-weight:300;font-size:clamp(.95rem,1.2vw,1.1rem);color:var(--ink-2)}
+  .ticks li::before{content:"";flex:none;width:9px;height:9px;margin-top:.5em;border-radius:50%;background:var(--rose)}
+  .cols.neg .col-2 .ticks li::before{background:var(--ink);opacity:.4}
+
+  .cards{display:grid;gap:clamp(.9rem,2vw,1.4rem);margin-top:1.8rem}
+  .cards.c3{grid-template-columns:repeat(3,1fr)}
+  .cards.c2{grid-template-columns:repeat(2,1fr)}
+  .card{background:var(--blush-soft);border-radius:18px;padding:clamp(1.1rem,2vw,1.6rem);border:1px solid rgba(227,162,150,.35);transition:transform .35s ease,box-shadow .35s ease}
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .card .k{font-weight:600;font-size:clamp(.78rem,1vw,.9rem);letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+  .card .k .sm{display:block;font-weight:300;text-transform:none;letter-spacing:0;font-size:.92em;color:var(--rose-strong);margin-top:.25rem}
+  .card ul{list-style:none;margin-top:.7rem;display:flex;flex-direction:column;gap:.45rem}
+  .card ul li{font-weight:300;color:var(--ink-2);font-size:clamp(.85rem,1.1vw,1rem);padding-left:1rem;position:relative}
+  .card ul li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--rose)}
+  .card.peach{background:var(--blush)}
+
+  .quote-xl{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(2.2rem,5vw,4rem);line-height:1.08;color:var(--ink)}
+  .drivers{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem 2.4rem;margin-top:2rem}
+  .driver{display:flex;gap:1rem;align-items:flex-start}
+  .driver .dot{flex:none;width:42px;height:42px;border-radius:50%;background:var(--sand);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+  .driver h4{font-weight:600;color:#fff;font-size:1.02rem;letter-spacing:.02em}
+  .driver p{font-weight:300;color:#bcc6df;font-size:.96rem;margin-top:.15rem}
+
+  .perception{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1.4rem;margin-top:2rem}
+  .perc-box{border-radius:16px;padding:1.6rem 1.4rem;text-align:center}
+  .perc-box .t{font-family:var(--serif);font-size:1.1rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.6rem;font-weight:500}
+  .perc-box .q{font-family:var(--serif);font-style:italic;font-size:clamp(1.1rem,1.8vw,1.5rem)}
+  .perc-from{background:var(--blush)}
+  .perc-to{background:#fff;border:1px solid var(--line)}
+  .perc-arrow{color:var(--rose-strong)}
+
+  .repo{display:grid;grid-template-columns:1.1fr 1fr;gap:2.6rem;align-items:center;margin-top:1.6rem}
+  .shift{display:flex;align-items:center;gap:1rem;font-family:var(--serif);font-size:clamp(1.2rem,2vw,1.8rem);flex-wrap:wrap}
+  .shift .tag{background:var(--blush);border-radius:999px;padding:.3rem 1.1rem;font-size:.95rem;font-family:var(--sans);font-weight:500;letter-spacing:.04em}
+  .shift .tag.to{background:var(--ink);color:#fff}
+  .tone-list{list-style:none;display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.4rem}
+  .tone-list li{background:#fff;border:1px solid var(--line);border-radius:999px;padding:.4rem 1.1rem;font-weight:400;font-size:.95rem}
+  .voice{background:var(--ink);color:var(--cream);border-radius:18px;padding:1.6rem 1.8rem}
+  .voice .row{display:flex;gap:.8rem;align-items:flex-start;padding:.7rem 0}
+  .voice .row + .row{border-top:1px solid rgba(255,255,255,.12)}
+  .voice .badge{font-weight:600;flex:none}
+  .voice .x{color:#E69A8E}.voice .ok{color:#7fd6c0}
+
+  .tbl{width:100%;border-collapse:collapse;margin-top:1.4rem;font-size:clamp(.85rem,1.1vw,1rem)}
+  .tbl th{background:var(--ink);color:#fff;font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;padding:.85rem 1.1rem;text-align:left}
+  .tbl td{padding:.85rem 1.1rem;border-bottom:1px solid var(--line);font-weight:300;color:var(--ink-2)}
+  .tbl tr:nth-child(even) td{background:rgba(243,201,187,.18)}
+  .tbl td:first-child{font-weight:500;color:var(--ink)}
+
+  .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.8rem}
+  .tl-step{background:var(--blush-soft);border-radius:16px;padding:1.2rem 1.1rem}
+  .tl-step .ph{display:inline-block;background:var(--rose);color:#fff;font-size:.72rem;font-weight:500;letter-spacing:.08em;border-radius:999px;padding:.2rem .7rem;margin-bottom:.6rem}
+  .tl-step h4{font-family:var(--serif);font-size:1.3rem;font-weight:600;margin-bottom:.4rem}
+  .tl-step p{font-size:.9rem;color:var(--ink-2);font-weight:300}
+
+  .img-ph{border:1.5px dashed var(--rose);border-radius:18px;background:repeating-linear-gradient(135deg,rgba(243,201,187,.12) 0 14px,rgba(243,201,187,.22) 14px 28px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;color:var(--rose-strong);text-align:center;padding:1.4rem;min-height:160px}
+  .img-ph .cap{font-weight:500;letter-spacing:.04em}
+  .img-ph .hint{font-size:.8rem;font-weight:300;color:var(--ink-2);opacity:.8}
+
+  /* dashboard */
+  .band.dash{background:radial-gradient(120% 120% at 82% 0%, #FFFFFF 0%, var(--cream) 46%, #F6E4D9 100%)}
+  .band.dash .wrap{max-width:1300px}
+  .dash-top{display:flex;justify-content:space-between;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;margin-bottom:1rem}
+  .dash-top .live{display:inline-flex;align-items:center;gap:.5rem;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);font-weight:400}
+  .dash-top .live .blip{width:8px;height:8px;border-radius:50%;background:#2FA88F;box-shadow:0 0 0 0 rgba(47,168,143,.6);animation:blip 2s infinite}
+  @keyframes blip{0%{box-shadow:0 0 0 0 rgba(47,168,143,.55)}70%{box-shadow:0 0 0 9px rgba(47,168,143,0)}100%{box-shadow:0 0 0 0 rgba(47,168,143,0)}}
+  .sc-strip{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem}
+  .sc-col{position:relative;text-align:left;background:#fff;border:1px solid var(--line);border-radius:16px;padding:.9rem 1.05rem;cursor:pointer;transition:transform .3s ease,border-color .3s ease,background .3s ease,box-shadow .3s ease}
+  .sc-col:hover{transform:translateY(-3px);border-color:var(--rose)}
+  .sc-col.active{background:linear-gradient(160deg,var(--blush) 0%, var(--blush-soft) 100%);border-color:var(--rose-strong);box-shadow:var(--shadow)}
+  .sc-col .nm{display:flex;align-items:center;gap:.5rem;font-weight:600;font-size:.95rem;color:var(--ink)}
+  .sc-col .swatch{width:10px;height:10px;border-radius:50%;flex:none}
+  .sc-col .vd{font-size:.74rem;font-weight:300;color:var(--ink-2);margin:.3rem 0 .65rem;line-height:1.3;min-height:2.6em}
+  .sc-col .mets{display:flex;justify-content:space-between;gap:.4rem;border-top:1px solid var(--line);padding-top:.55rem}
+  .sc-col .met{flex:1}
+  .sc-col .met .n{font-family:var(--serif);font-weight:600;font-size:1.45rem;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+  .sc-col .met .l{font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--rose-strong);margin-top:.2rem}
+  .sc-col .pick{position:absolute;top:.8rem;right:.95rem;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--rose-strong);opacity:0;transition:opacity .3s;font-weight:600}
+  .sc-col.active .pick{opacity:1}
+  .sc-hint{grid-column:1/-1;font-size:.76rem;color:var(--ink-2);font-weight:300;margin:.05rem 0 .1rem}
+  .dash-note{font-weight:300;color:var(--ink-2);font-size:.95rem;margin:.1rem 0 1rem;min-height:1.3em}
+  .dash-note strong{color:var(--ink);font-weight:600}
+  .dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem}
+  .kpi{background:var(--blush-soft);border:1px solid rgba(227,162,150,.32);border-radius:16px;padding:1.05rem 1.15rem;position:relative;overflow:hidden}
+  .kpi .tag{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--rose-strong)}
+  .kpi .val{font-family:var(--serif);font-weight:600;font-size:clamp(1.9rem,3.2vw,2.6rem);line-height:1;margin:.35rem 0 .1rem;color:var(--ink);font-variant-numeric:tabular-nums}
+  .kpi .cap{font-size:.82rem;font-weight:300;color:var(--ink-2)}
+  .kpi.chartcard{background:#fff;border-color:var(--line);display:flex;flex-direction:column}
+  .kpi.span2{grid-column:span 2}
+  .kpi.chartcard .chart-wrap{position:relative;flex:1;min-height:128px;margin-top:.55rem}
+  .kpi .chart-wrap.sm{min-height:112px}
+  .group-label{grid-column:1/-1;display:flex;align-items:center;gap:.8rem;margin-top:.45rem;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rose-strong);font-weight:600}
+  .group-label::after{content:"";flex:1;height:1px;background:var(--line)}
+  .dash-foot{margin-top:.9rem;font-size:.9rem;color:var(--ink-2);font-weight:300;text-align:center}
+  .dash-foot strong{color:var(--ink)}
+
+  .loop{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1.6rem}
+  .loop .card{background:var(--blush)}
+  .loop .card .step{font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--rose-strong)}
+  .loop .card h4{font-family:var(--serif);font-size:1.4rem;font-weight:600;margin:.2rem 0 .7rem}
+
+  .cobrand{font-family:var(--serif);font-size:clamp(1.7rem,3.6vw,2.7rem);color:var(--ink);font-weight:500}
+  .cobrand .x{color:var(--rose-strong);font-style:italic;margin:0 .35em}
+
+  .motif{position:absolute;pointer-events:none;z-index:1}
+  .motif.tr{top:-40px;right:-30px;width:min(30vw,340px)}
+  .motif.br{bottom:-60px;right:-40px;width:min(26vw,300px)}
+  .motif.bl{bottom:-50px;left:-30px;width:min(20vw,220px)}
+  .band.dark .motif,.band.dash .motif{opacity:.5}
+
+  .pagefoot{border-top:1px solid var(--line);margin-top:0;padding:1.6rem 0;text-align:center}
+  .pagefoot a{color:var(--rose-strong);text-decoration:none;font-weight:600;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+
+  @media (max-width:860px){
+    .burger{display:flex}
+    .nav-links{position:absolute;top:var(--navh);left:0;right:0;background:var(--ink);flex-direction:column;gap:.1rem;padding:.8rem;display:none;border-top:1px solid rgba(255,255,255,.1)}
+    .nav-links.open{display:flex}
+    .nav-links a{padding:.8rem 1rem;border-radius:10px}
+    .stat-row,.cols,.cards.c3,.cards.c2,.timeline,.loop,.repo,.perception,.drivers{grid-template-columns:1fr}
+    .perception{gap:.7rem}.perc-arrow{transform:rotate(90deg);justify-self:center}
+    .dash-grid{grid-template-columns:repeat(2,1fr)}
+    .sc-strip{grid-template-columns:1fr}
+    .kpi.span2{grid-column:span 2}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{animation:none!important}
+  }
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="#home">Gallinée <span>Viral in Spain</span></a>
+  <button class="burger" id="burger" aria-label="Menu">__BURGER__</button>
+  <nav class="nav-links" id="navLinks">
+    <a href="#diagnosis">Diagnosis</a>
+    <a href="#bigidea">Big Idea</a>
+    <a href="#strategy">Strategy</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#stretch">Stretch Play</a>
+  </nav>
+</header>
+<div class="progress" id="progress"></div>
+
+<main>
+
+  <!-- ============ HOME ============ -->
+  <section class="page active" id="page-home">
+    <div class="band hero">
+      <div class="motif tr">__MOTIF_LARGE__</div>
+      <div class="wrap title-grid">
+        <h1><span class="line">Making</span><span class="line">Gallinée Viral</span><span class="line">in Spain</span></h1>
+        <div class="title-rule"></div>
+        <div class="title-meta">Digital Communication Strategy · 2026</div>
+        <div class="title-group">Group 3</div>
+      </div>
+    </div>
+    <div class="band tight alt">
+      <div class="wrap">
+        <div class="eyebrow">Inside this strategy</div>
+        <div class="home-cards">
+          <a class="home-card" href="#diagnosis"><span class="hc-num">01</span><h3>Diagnosis &amp; Opportunity</h3><p>Where Gallinée stands, the Spanish market, the competitive benchmark and the real problem.</p><span class="hc-go">View →</span></a>
+          <a class="home-card" href="#bigidea"><span class="hc-num">02</span><h3>The Big Idea</h3><p>"Your skin has a world within" — the creative idea, repositioning and tone of voice.</p><span class="hc-go">View →</span></a>
+          <a class="home-card" href="#strategy"><span class="hc-num">03</span><h3>Strategy in Action</h3><p>Content pillars &amp; channels, MicroBob, the pop-up and the creators behind it.</p><span class="hc-go">View →</span></a>
+          <a class="home-card" href="#dashboard"><span class="hc-num">04</span><h3>The Dashboard</h3><p>The budget and a live, interactive performance dashboard across three scenarios.</p><span class="hc-go">View →</span></a>
+          <a class="home-card" href="#stretch"><span class="hc-num">05</span><h3>The Stretch Play</h3><p>One team, one ecosystem — the co-branded Shiseido × Gallinée opportunity.</p><span class="hc-go">View →</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 01 · DIAGNOSIS & OPPORTUNITY ============ -->
+  <section class="page" id="page-diagnosis">
+    <div class="band">
+      <div class="wrap">
+        <div class="page-tag"><span class="pn">01</span><span class="pe">Diagnosis &amp; Opportunity</span></div>
+        <h2>Where Gallinée stands today</h2>
+        <p class="lede">Gallinée entered Spain in 2025 as Shiseido's first pharmacy skincare brand in EMEA and a pioneer in microbiome skincare. Despite strong scientific credentials, awareness remains extremely low.</p>
+        <div class="cols neg">
+          <div class="col-1"><div class="col-head">Strengths</div><ul class="ticks"><li>First microbiome skincare pioneer</li><li>Scientific founder credibility</li><li>Backed by Shiseido</li><li>Patented microbiome technology</li><li>Accessible premium pricing</li></ul></div>
+          <div class="col-2"><div class="col-head neg">Challenges</div><ul class="ticks"><li>Low brand awareness</li><li>Microbiome poorly understood</li><li>Limited social presence</li><li>Complex scientific language</li><li>Weak cultural relevance</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div class="band alt">
+      <div class="wrap">
+        <div class="eyebrow">Why Spain? Why now?</div>
+        <h2>The market opportunity</h2>
+        <div class="stat-row">
+          <div class="stat"><div class="num"><span class="count" data-to="51" data-suffix="%">0</span></div><div class="lbl">of Spain's beauty market is skincare</div></div>
+          <div class="stat"><div class="num"><span class="count" data-to="22000" data-suffix="">0</span></div><div class="lbl">pharmacies nationwide</div></div>
+          <div class="stat"><div class="num">↗</div><div class="lbl">Fastest-growing beauty channel</div></div>
+        </div>
+        <p class="lede" style="margin-top:2rem">The market is ready for breakthroughs. <strong>The challenge is making innovation understandable.</strong></p>
+      </div>
+    </div>
+    <div class="band" data-chart="benchmark">
+      <div class="wrap">
+        <div class="eyebrow">Competitive Benchmark</div>
+        <h2>High innovation. Accessible price. <span class="alt">Low awareness.</span></h2>
+        <p class="lede">Mapping top-sellers by innovation against price per ml shows Gallinée sitting in rare territory. The problem isn't the product — <strong>it's communication.</strong></p>
+        <div style="position:relative;height:min(50vh,420px);margin-top:1rem;background:#fff;border-radius:16px;border:1px solid var(--line);padding:1rem 1.2rem"><canvas id="benchmarkChart"></canvas></div>
+        <p style="margin-top:.9rem;font-size:.95rem;color:var(--ink-2)"><strong>Key insight:</strong> consumers buy outcomes, not scientific mechanisms.</p>
+      </div>
+    </div>
+    <div class="band alt" data-chart="survey">
+      <div class="wrap">
+        <div class="eyebrow">Our Survey · 30 respondents</div>
+        <h2>People want skin health — <span class="alt">they just don't know the brand</span></h2>
+        <div class="cols" style="margin-top:1.6rem;align-items:center">
+          <div>
+            <p style="font-weight:500;margin-bottom:.6rem">Do you know what the skin microbiome is?</p>
+            <div style="position:relative;height:min(34vh,300px)"><canvas id="surveyChart"></canvas></div>
+          </div>
+          <div class="cards c2" style="margin-top:0">
+            <div class="card peach"><div style="font-family:var(--serif);font-size:2.3rem;font-weight:600"><span class="count" data-to="70" data-suffix="%">0</span></div><div style="font-weight:300;color:var(--ink-2)">use skincare daily</div></div>
+            <div class="card peach"><div style="font-family:var(--serif);font-size:2.3rem;font-weight:600"><span class="count" data-to="78" data-suffix="%">0</span></div><div style="font-weight:300;color:var(--ink-2)">say trust comes from expertise</div></div>
+            <div class="card peach"><div style="font-family:var(--serif);font-size:2.3rem;font-weight:600"><span class="count" data-to="96" data-suffix="%">0</span></div><div style="font-weight:300;color:var(--ink-2)">lack awareness of the brand</div></div>
+            <div class="card peach"><div style="font-family:var(--serif);font-size:2.3rem;font-weight:600"><span class="count" data-to="93" data-suffix="%">0</span></div><div style="font-weight:300;color:var(--ink-2)">want better skin health</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="band">
+      <div class="wrap">
+        <div class="eyebrow">The Awareness Paradox</div>
+        <h2>Consumers buy <span class="alt">benefits.</span> Gallinée communicates mechanisms.</h2>
+        <div class="perception">
+          <div class="perc-box perc-from"><div class="t">Current</div><div class="q">"Microbiome sounds complicated."</div></div>
+          <div class="perc-arrow">__ARROW__</div>
+          <div class="perc-box perc-to"><div class="t">Desired</div><div class="q">"My skin needs a healthy ecosystem."</div></div>
+        </div>
+        <p class="lede" style="margin-top:2rem;text-align:center;max-width:none">People don't need more skincare education. <strong>They need skincare explained in human language.</strong></p>
+      </div>
+    </div>
+    <div class="pagefoot"><a href="#bigidea">Next · The Big Idea →</a></div>
+  </section>
+
+  <!-- ============ 02 · THE BIG IDEA ============ -->
+  <section class="page" id="page-bigidea">
+    <div class="band tight">
+      <div class="wrap"><div class="page-tag"><span class="pn">02</span><span class="pe">The Big Idea</span></div></div>
+    </div>
+    <div class="band dark">
+      <div class="motif tr">__MOTIF_LARGE__</div>
+      <div class="wrap">
+        <div class="eyebrow">The Big Creative Idea</div>
+        <div class="quote-xl">"Your Skin Has<br>a World Within"</div>
+        <p class="lede" style="color:#cfd6e8;margin-top:1.3rem">Every person's skin holds billions of microorganisms forming a living ecosystem. Most people have never thought about it — and once they discover it, they can't stop talking about it.</p>
+        <div class="drivers">
+          <div class="driver"><div class="dot">💡</div><div><h4>Surprise</h4><p>"Wait — there are billions of bacteria on my skin?"</p></div></div>
+          <div class="driver"><div class="dot">🪪</div><div><h4>Identity</h4><p>People see themselves as caretakers of their own ecosystem.</p></div></div>
+          <div class="driver"><div class="dot">🔁</div><div><h4>Social currency</h4><p>Sharing a surprising fact makes people feel informed.</p></div></div>
+          <div class="driver"><div class="dot">🙌</div><div><h4>Participation</h4><p>People can test, discuss, compare and share experiences.</p></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="band">
+      <div class="wrap">
+        <div class="eyebrow">Strategic Repositioning</div>
+        <h2>From microbiome brand to <span class="alt">skin-health brand</span></h2>
+        <div class="repo">
+          <div>
+            <div class="shift"><span class="tag">Microbiome science</span> __ARROW_INK__ <span class="tag to">Skin that helps itself</span></div>
+            <p class="lede" style="margin-top:1.2rem">We don't sell microbiome science — we sell <strong>stronger, balanced, resilient skin.</strong> The brand is the <strong>enabler</strong>: not the hero, not the scientist, not the lecturer.</p>
+            <ul class="tone-list"><li>Curious</li><li>Playful</li><li>Unexpected</li><li>Social-first</li></ul>
+          </div>
+          <div class="voice">
+            <div class="eyebrow" style="color:var(--blush)">Tone of voice</div>
+            <div class="row"><span class="badge x">Not</span><span style="color:#cfd6e8;font-weight:300">"Patented prebiotic &amp; postbiotic complex"</span></div>
+            <div class="row"><span class="badge ok">Yes</span><span style="color:#fff;font-weight:400">"Think of your skin as a tiny ecosystem"</span></div>
+            <p style="margin-top:1rem;color:#bcc6df;font-weight:300;font-size:.95rem">People won't share skincare products. <strong style="color:#fff">People share discoveries.</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pagefoot"><a href="#strategy">Next · Strategy in Action →</a></div>
+  </section>
+
+  <!-- ============ 03 · STRATEGY IN ACTION ============ -->
+  <section class="page" id="page-strategy">
+    <div class="band tight">
+      <div class="wrap"><div class="page-tag"><span class="pn">03</span><span class="pe">Strategy in Action</span></div></div>
+    </div>
+    <div class="band alt">
+      <div class="wrap">
+        <div class="eyebrow">Content Strategy &amp; Digital Ecosystem</div>
+        <h2>Three pillars, five channels</h2>
+        <div class="cards c3">
+          <div class="card"><div class="k">Educate<span class="sm">Build understanding</span></div><ul><li>Microbiome in 10 seconds</li><li>What damages your ecosystem</li><li>Skin barrier vs microbiome</li></ul></div>
+          <div class="card"><div class="k">Entertain<span class="sm">Reach &amp; virality</span></div><ul><li>MicroBob mascot content</li><li>"Day in the life of your bacteria"</li><li>Trends &amp; memes</li></ul></div>
+          <div class="card"><div class="k">Prove<span class="sm">Build credibility</span></div><ul><li>Dermatologist content</li><li>Pharmacist recommendations</li><li>Clinical results &amp; testimonials</li></ul></div>
+        </div>
+        <table class="tbl">
+          <thead><tr><th>Channel</th><th>Role</th><th>Objective</th></tr></thead>
+          <tbody>
+            <tr><td>TikTok</td><td>Discovery</td><td>Generate awareness &amp; curiosity</td></tr>
+            <tr><td>Instagram</td><td>Education &amp; Community</td><td>Build understanding &amp; engagement</td></tr>
+            <tr><td>YouTube</td><td>Deep Education</td><td>Expert-led explanations</td></tr>
+            <tr><td>Website</td><td>Conversion</td><td>Turn interest into consideration</td></tr>
+            <tr><td>Pharmacy</td><td>Trust</td><td>Reinforce scientific credibility</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="band peach">
+      <div class="wrap" style="text-align:center">
+        <h2 style="font-size:clamp(2.4rem,5.5vw,4.2rem)">Meet MicroBob</h2>
+        <p class="sub" style="margin-bottom:2rem">Our mascot — the friendly face of your skin's microbiome.</p>
+        <div class="img-ph" id="ph-microbob" data-img="microbob" data-img-style="display:block;margin:0 auto;width:100%;max-width:330px;max-height:440px;object-fit:contain;border-radius:18px" style="max-width:560px;margin:0 auto;min-height:340px"><div style="font-size:2rem">🦠</div><div class="cap">Drop in: MicroBob</div><div class="hint">Save your image as <b>microbob.png</b> in the same folder, then reload</div></div>
+      </div>
+    </div>
+    <div class="band">
+      <div class="wrap">
+        <div class="eyebrow">Activation &amp; Amplification</div>
+        <h2>From a launch to a movement</h2>
+        <div class="timeline">
+          <div class="tl-step"><span class="ph">Month 0–3</span><h4>Educate</h4><p>Educational content to introduce the brand &amp; grow followers.</p></div>
+          <div class="tl-step"><span class="ph">Month 3–6</span><h4>Engage</h4><p>Launch MicroBob &amp; trend-led content for younger audiences.</p></div>
+          <div class="tl-step"><span class="ph">Ongoing</span><h4>Build trust</h4><p>Dermatologists, pharmacists &amp; KOLs; live testimonials.</p></div>
+          <div class="tl-step"><span class="ph">Ongoing</span><h4>Scale</h4><p>Pop-up content &amp; KOL experiences that inspire action.</p></div>
+        </div>
+        <div class="cards c2" style="margin-top:1.4rem">
+          <div class="img-ph" id="ph-packaging" data-img="packaging" data-img-style="display:block;width:100%;max-height:320px;object-fit:cover;border-radius:18px"><div>🥚</div><div class="cap">PR Packaging render</div><div class="hint">Save as <b>packaging.png</b> in the same folder</div></div>
+          <div class="img-ph" id="ph-popup" data-img="popup" data-img-style="display:block;width:100%;max-height:320px;object-fit:cover;border-radius:18px"><div>🏛️</div><div class="cap">The Pop-Up render</div><div class="hint">Save as <b>popup.png</b> in the same folder</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pagefoot"><a href="#dashboard">Next · The Dashboard →</a></div>
+  </section>
+
+  <!-- ============ 04 · THE DASHBOARD ============ -->
+  <section class="page" id="page-dashboard">
+    <div class="band tight">
+      <div class="wrap"><div class="page-tag"><span class="pn">04</span><span class="pe">Measurement &amp; Budget</span></div></div>
+    </div>
+    <div class="band alt" data-chart="budget">
+      <div class="wrap">
+        <div class="eyebrow">Financial Model</div>
+        <h2>€200k for 2026 — <span class="alt">built to spread</span></h2>
+        <div class="cols" style="margin-top:1.4rem;align-items:center">
+          <div style="position:relative;height:min(42vh,340px)"><canvas id="budgetChart"></canvas></div>
+          <div>
+            <ul class="ticks" style="gap:1.1rem">
+              <li><span><strong>Paid Media — 45%.</strong> Weighted to TikTok &amp; Instagram, plus YouTube for deep education.</span></li>
+              <li><span><strong>Influencers &amp; KOLs — 32%.</strong> Credibility plus creators at the pop-up generating weeks of content.</span></li>
+              <li><span><strong>Management — 13%.</strong> Team time and analytics to track the KPI framework.</span></li>
+              <li><span><strong>Production — 10%.</strong> The mascot, content, and the pop-up space.</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="band dash" data-chart="dashboard">
+      <div class="motif br">__MOTIF_LARGE__</div>
+      <div class="wrap">
+        <div class="dash-top">
+          <div><div class="eyebrow">Measurement &amp; Optimization</div><h2>Performance Dashboard</h2></div>
+          <span class="live"><span class="blip"></span>Real-time · tracked weekly</span>
+        </div>
+        <div class="dash-note" id="dashNote"></div>
+        <div class="dash-grid">
+          <div class="sc-strip" id="scStrip">
+            <div class="sc-col" data-s="cons"><span class="pick">Viewing</span><div class="nm"><span class="swatch" style="background:#8390ad"></span>Conservative</div><div class="vd">Paid reach, doesn't catch on — attention without virality.</div><div class="mets"><div class="met"><div class="n">10M</div><div class="l">Reach</div></div><div class="met"><div class="n">12%</div><div class="l">Awareness</div></div><div class="met"><div class="n">20%</div><div class="l">Earned</div></div></div></div>
+            <div class="sc-col active" data-s="base"><span class="pick">Viewing</span><div class="nm"><span class="swatch" style="background:#D98C7E"></span>Base case</div><div class="vd">Awareness jump, healthy shares, real UGC — the realistic target.</div><div class="mets"><div class="met"><div class="n">28M</div><div class="l">Reach</div></div><div class="met"><div class="n">25%</div><div class="l">Awareness</div></div><div class="met"><div class="n">40%</div><div class="l">Earned</div></div></div></div>
+            <div class="sc-col" data-s="opt"><span class="pick">Viewing</span><div class="nm"><span class="swatch" style="background:#1B2A4D"></span>Optimistic</div><div class="vd">Formats take off, UGC goes viral — microbiome goes mainstream.</div><div class="mets"><div class="met"><div class="n">60M+</div><div class="l">Reach</div></div><div class="met"><div class="n">41%</div><div class="l">Awareness</div></div><div class="met"><div class="n">62%</div><div class="l">Earned</div></div></div></div>
+          </div>
+          <div class="sc-hint">Comparing all three scenarios — tap one to drill into its weekly KPIs and funnel below.</div>
+
+          <div class="group-label">Awareness — is the story spreading?</div>
+          <div class="kpi chartcard span2"><div class="tag">Cumulative reach by month — all scenarios</div><div class="chart-wrap"><canvas id="reachChart"></canvas></div></div>
+          <div class="kpi"><div class="tag">Follower growth</div><div class="val">+<span id="k-foll">62</span>K</div><div class="cap">TikTok + Instagram ES</div></div>
+          <div class="kpi"><div class="tag">Video completion</div><div class="val"><span id="k-vcr">48</span>%</div><div class="cap">Discovery content · hook strength</div></div>
+
+          <div class="group-label">Engagement — does it resonate?</div>
+          <div class="kpi"><div class="tag">Engagement rate</div><div class="val"><span id="k-eng">6.4</span>%</div><div class="cap">Comments · likes · shares</div></div>
+          <div class="kpi"><div class="tag">UGC volume</div><div class="val"><span id="k-ugc">1.8</span>K</div><div class="cap">Pieces in #SkinResetJourney</div></div>
+          <div class="kpi chartcard span2"><div class="tag">Earned vs. paid reach — by scenario</div><div class="chart-wrap sm"><canvas id="splitChart"></canvas></div></div>
+
+          <div class="group-label">Business impact — does it convert?</div>
+          <div class="kpi"><div class="tag">Email sign-ups</div><div class="val"><span id="k-email">14</span>K</div><div class="cap">Free microbiome guide / discount</div></div>
+          <div class="kpi"><div class="tag">Lead conversion</div><div class="val"><span id="k-conv">3.1</span>%</div><div class="cap">Ad clicks → leads</div></div>
+          <div class="kpi chartcard span2"><div class="tag">Consideration funnel · selected scenario</div><div class="chart-wrap sm"><canvas id="funnelChart"></canvas></div></div>
+        </div>
+        <div class="dash-foot"><strong>Success ≠ views.</strong> Success = Awareness + Participation + Consideration.</div>
+      </div>
+    </div>
+    <div class="band">
+      <div class="wrap">
+        <div class="eyebrow">Optimization Plan</div>
+        <h2>Virality can't be fully planned — <span class="alt">so we test &amp; learn</span></h2>
+        <div class="loop">
+          <div class="card"><div class="step">48-hour window</div><h4>Publish &amp; observe</h4><p style="font-weight:300;color:var(--ink-2)">Post 2–3 variations, vary one element only, track early signals.</p></div>
+          <div class="card"><div class="step">Pre-agreed rules</div><h4>Decide &amp; act</h4><p style="font-weight:300;color:var(--ink-2)">Scale winners with paid; pause or rework the rest.</p></div>
+          <div class="card"><div class="step">Weekly sprint</div><h4>Learn &amp; refine</h4><p style="font-weight:300;color:var(--ink-2)">Educational vs. entertainment, creator vs. derm — feed next week's brief.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="pagefoot"><a href="#stretch">Next · The Stretch Play →</a></div>
+  </section>
+
+  <!-- ============ 05 · STRETCH PLAY ============ -->
+  <section class="page" id="page-stretch">
+    <div class="band sand">
+      <div class="motif br">__MOTIF_SMALL__</div>
+      <div class="wrap">
+        <div class="page-tag"><span class="pn">05</span><span class="pe">The Stretch Play</span></div>
+        <h2>We're one big group. <span class="alt">So are the brands.</span></h2>
+        <p class="lede">The class was split into many teams across two briefs — some on Gallinée, some on Shiseido. We took Gallinée. But the sharpest strategy isn't to win our brief in isolation: Gallinée's single biggest advantage is <strong>Shiseido standing behind it.</strong> So the boldest version of this plan stops treating them as separate problems and builds one co-branded <strong>Shiseido × Gallinée pop-up</strong> — turning the parent brand's scale and trust into Gallinée's fastest route to virality.</p>
+        <div class="img-ph" id="ph-cobrand" data-img="cobrand" data-img-style="display:block;margin:1.5rem auto;width:100%;max-width:500px;max-height:170px;object-fit:contain" style="min-height:180px;margin:1.5rem 0"><div class="cobrand">Shiseido <span class="x">×</span> Gallinée</div><div class="hint">Save the logo lockup as <b>cobrand.png</b> in the same folder, then reload</div></div>
+        <div class="cards c2">
+          <div class="card peach"><div class="k">Instant credibility<span class="sm">Shiseido backing is the advantage</span></div><p style="font-weight:300;color:var(--ink-2);margin-top:.5rem;font-size:.96rem">Gallinée steps onto Shiseido's stage. The parent's reputation de-risks a young challenger and shortcuts years of brand-building in a single moment.</p></div>
+          <div class="card peach"><div class="k">More for less<span class="sm">Shared cost, bigger stage</span></div><p style="font-weight:300;color:var(--ink-2);margin-top:.5rem;font-size:.96rem">One premium space, two brands. Prime locations, more press and a far lower cost per impression than either brand reaches alone.</p></div>
+          <div class="card peach"><div class="k">Two crowds, one room<span class="sm">Cross-audience discovery</span></div><p style="font-weight:300;color:var(--ink-2);margin-top:.5rem;font-size:.96rem">Shiseido's prestige shoppers meet Gallinée's accessible-premium upgraders — a natural bridge between price tiers.</p></div>
+          <div class="card peach"><div class="k">A halo both ways<span class="sm">Mutual lift</span></div><p style="font-weight:300;color:var(--ink-2);margin-top:.5rem;font-size:.96rem">Gallinée gains legitimacy and reach; Shiseido gains a younger, social-first, viral edge — and a microbiome story to anchor its science.</p></div>
+        </div>
+        <p class="lede" style="margin-top:1.6rem;text-align:center;max-width:none">The best ecosystems don't compete — <strong>they collaborate.</strong> Just like the skin.</p>
+      </div>
+    </div>
+    <div class="band footer">
+      <div class="motif tr">__MOTIF_LARGE__</div>
+      <div class="motif bl">__MOTIF_SMALL__</div>
+      <div class="wrap">
+        <h1 style="color:#fff">Thank You</h1>
+        <div class="title-group" style="text-transform:none;letter-spacing:.06em;margin-top:1rem">Group 3 · Making Gallinée Viral in Spain</div>
+        <p style="margin-top:1.4rem"><a href="#home" style="color:var(--blush);text-decoration:none;font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:.82rem">← Back to home</a></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  var motifLarge = '<svg viewBox="0 0 360 300" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="250" cy="60" r="48" fill="#1B2A4D"/><circle cx="318" cy="120" r="58" stroke="#1B2A4D" stroke-width="6"/><circle cx="210" cy="150" r="22" fill="#E7D4B2"/><line x1="288" y1="92" x2="270" y2="78" stroke="#1B2A4D" stroke-width="6"/><circle cx="170" cy="70" r="14" fill="#F3C9BB"/></svg>';
+  var motifSmall = '<svg viewBox="0 0 240 220" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="150" cy="120" r="70" fill="#E7D4B2" opacity="0.65"/><circle cx="110" cy="170" r="44" stroke="#E3A296" stroke-width="6" opacity="0.7"/></svg>';
+  var arrow = '<svg width="64" height="34" viewBox="0 0 64 34" fill="none"><path d="M2 17h54m0 0l-12-12m12 12l-12 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var arrowInk = '<svg width="48" height="22" viewBox="0 0 48 22" fill="none" style="flex:none"><path d="M2 11h40m0 0l-9-9m9 9l-9 9" stroke="#1B2A4D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var burger = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+
+  document.body.innerHTML = document.body.innerHTML
+    .split('__MOTIF_LARGE__').join(motifLarge)
+    .split('__MOTIF_SMALL__').join(motifSmall)
+    .split('__ARROW_INK__').join(arrowInk)
+    .split('__ARROW__').join(arrow)
+    .split('__BURGER__').join(burger);
+
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var PAGES = ['home','diagnosis','bigidea','strategy','dashboard','stretch'];
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+  var built = {}, counted = {};
+
+  function route(){
+    var hash = (location.hash || '').replace('#','');
+    if(PAGES.indexOf(hash) < 0) hash = 'home';
+    showPage(hash);
+  }
+
+  function showPage(id){
+    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+    var el = document.getElementById('page-'+id);
+    el.classList.add('active');
+    navLinks.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href')==='#'+id); });
+    window.scrollTo(0,0);
+    onScroll();
+    document.getElementById('navLinks').classList.remove('open');
+    // lazy init charts for this page
+    el.querySelectorAll('[data-chart]').forEach(function(sec){ initChart(sec.getAttribute('data-chart')); });
+    // counters once per page
+    if(!counted[id]){ counted[id] = true; runCounters(el); }
+    // make sure any existing charts re-fit when their page is shown
+    setTimeout(function(){ for(var k in charts){ try{ charts[k].resize(); }catch(e){} } }, 60);
+  }
+
+  window.addEventListener('hashchange', route);
+
+  // counters
+  function runCounters(scope){
+    scope.querySelectorAll('.count').forEach(function(el){
+      var to = parseFloat(el.getAttribute('data-to')), suffix = el.getAttribute('data-suffix')||'';
+      if(prefersReduced){ el.textContent = format(to)+suffix; return; }
+      var start = performance.now(), dur = 1100;
+      function tick(now){ var p=Math.min(1,(now-start)/dur),e=1-Math.pow(1-p,3); el.textContent=format(to*e)+suffix; if(p<1) requestAnimationFrame(tick); else el.textContent=format(to)+suffix; }
+      requestAnimationFrame(tick);
+    });
+  }
+  function format(n){ if(n>=1000) return Math.round(n).toLocaleString('en-US'); return (Math.round(n*10)/10 % 1 === 0)?String(Math.round(n)):(Math.round(n*10)/10).toString(); }
+
+  // progress
+  var prog = document.getElementById('progress');
+  function onScroll(){ var h=document.documentElement.scrollHeight-window.innerHeight; prog.style.width=(h>0?(window.scrollY/h*100):0)+'%'; }
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // mobile menu
+  document.getElementById('burger').addEventListener('click', function(){ document.getElementById('navLinks').classList.toggle('open'); });
+
+  // ============ charts ============
+  var INK='#1B2A4D', ROSE='#E3A296', BLUSH='#F3C9BB';
+  function gridL(){ return {color:'rgba(27,42,77,.08)'}; }
+  var charts = {};
+  function initChart(key){
+    if(built[key]) return;
+    if(typeof Chart === 'undefined'){ setTimeout(function(){ initChart(key); }, 200); return; }
+    built[key] = true;
+    Chart.defaults.font.family = "'Jost', sans-serif";
+    if(key==='benchmark') buildBenchmark();
+    if(key==='survey') buildSurvey();
+    if(key==='budget') buildBudget();
+    if(key==='dashboard'){ buildDashboard(); applyScenario('base'); }
+  }
+
+  function buildBenchmark(){
+    var pts=[{x:0.03,y:6,brand:'CeraVe',prod:'Moisturizing Cream'},{x:0.57,y:6,brand:'La Roche-Posay',prod:'Cicaplast B5+'},{x:1.40,y:7,brand:'Filorga',prod:'Time-Filler 5XP'},{x:6.20,y:10,brand:'SkinCeuticals',prod:'C E Ferulic'}];
+    var gal=[{x:0.14,y:8,brand:'Gallinée',prod:'Face Vinegar'}];
+    charts.benchmark=new Chart(document.getElementById('benchmarkChart'),{type:'scatter',
+      data:{datasets:[{label:'Competitors',data:pts,backgroundColor:INK,pointRadius:9,pointHoverRadius:12},{label:'Gallinée',data:gal,backgroundColor:ROSE,borderColor:'#fff',borderWidth:3,pointRadius:14,pointHoverRadius:16}]},
+      options:{responsive:true,maintainAspectRatio:false,layout:{padding:6},
+        scales:{x:{type:'logarithmic',min:0.01,max:10,title:{display:true,text:'Price per ml (€)',color:INK,font:{size:12,weight:'500'}},grid:gridL(),ticks:{color:'#33436e',callback:function(v){return [0.01,0.1,1,10].indexOf(v)>=0?'€'+v:'';}}},y:{min:0,max:11,title:{display:true,text:'Innovation score (1–10)',color:INK,font:{size:12,weight:'500'}},grid:gridL(),ticks:{color:'#33436e',stepSize:2}}},
+        plugins:{legend:{display:false},tooltip:{backgroundColor:INK,padding:10,callbacks:{label:function(c){var d=c.raw;return d.brand+' · '+d.prod+'  (€'+d.x+'/ml, '+d.y+'/10)';}}}}}});
+  }
+  function buildSurvey(){
+    charts.survey=new Chart(document.getElementById('surveyChart'),{type:'doughnut',
+      data:{labels:['No','Yes'],datasets:[{data:[70.4,29.6],backgroundColor:[INK,BLUSH],borderColor:'#fff',borderWidth:4,hoverOffset:6}]},
+      options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'bottom',labels:{color:INK,font:{size:13},padding:16,boxWidth:12,usePointStyle:true}},tooltip:{backgroundColor:INK,padding:10,callbacks:{label:function(c){return c.label+': '+c.parsed+'%';}}}}}});
+  }
+  function buildBudget(){
+    charts.budget=new Chart(document.getElementById('budgetChart'),{type:'doughnut',
+      data:{labels:['Paid Media','Influencers & KOLs','Management','Production'],datasets:[{data:[45,32,13,10],backgroundColor:[INK,ROSE,'#E7D4B2',BLUSH],borderColor:'#fff',borderWidth:4,hoverOffset:8}]},
+      options:{responsive:true,maintainAspectRatio:false,cutout:'58%',plugins:{legend:{position:'bottom',labels:{color:INK,font:{size:12},padding:12,boxWidth:12,usePointStyle:true}},tooltip:{backgroundColor:INK,padding:10,callbacks:{label:function(c){return c.label+': '+c.parsed+'%';}}}}}});
+  }
+
+  var SC={
+    cons:{note:'Content works as paid reach but doesn\'t catch on — <strong>attention without virality.</strong>',foll:24,vcr:34,eng:3.2,ugc:0.3,email:6,conv:1.6,split:[80,20],funnel:[10,4.2,1.6,0.5],curve:[0.4,1.0,1.8,2.7,3.6,4.5,5.4,6.4,7.4,8.4,9.2,10]},
+    base:{note:'A meaningful jump in aided awareness, healthy saves &amp; shares, UGC starting to produce real volume — <strong>the realistic target.</strong>',foll:62,vcr:48,eng:6.4,ugc:1.8,email:14,conv:3.1,split:[60,40],funnel:[28,12.5,5.2,1.9],curve:[0.6,1.6,3.2,5.4,8.0,11,14.5,18,21.5,24.5,26.6,28]},
+    opt:{note:'One or two formats take off and the UGC challenge goes viral — <strong>earned media outweighs paid; microbiome goes mainstream.</strong>',foll:138,vcr:57,eng:9.1,ugc:5.4,email:31,conv:4.6,split:[38,62],funnel:[62,31,14.5,6.2],curve:[0.8,2.2,4.8,8.5,14,21,30,40,49,55,59,62]}
+  };
+  var curScenario='base', SC_ORDER=['cons','base','opt'], SC_COLOR={cons:'#8390ad',base:'#D98C7E',opt:'#1B2A4D'}, SC_NAME={cons:'Conservative',base:'Base case',opt:'Optimistic'};
+  function rgba(hex,a){var n=parseInt(hex.slice(1),16);return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')';}
+
+  function buildDashboard(){
+    var months=['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'];
+    charts.reach=new Chart(document.getElementById('reachChart'),{type:'line',
+      data:{labels:months,datasets:SC_ORDER.map(function(k){return {key:k,label:SC_NAME[k],data:SC[k].curve,borderColor:SC_COLOR[k],backgroundColor:rgba(SC_COLOR[k],.14),fill:false,tension:.4,pointRadius:0,pointHoverRadius:5,borderWidth:2};})},
+      options:{responsive:true,maintainAspectRatio:false,animation:{duration:prefersReduced?0:900},interaction:{mode:'index',intersect:false},
+        scales:{x:{grid:{display:false},ticks:{color:'#6b7794',font:{size:9},maxRotation:0,autoSkip:true,maxTicksLimit:6}},y:{grid:gridL(),ticks:{color:'#6b7794',font:{size:10},callback:function(v){return v+'M';}}}},
+        plugins:{legend:{position:'top',align:'end',labels:{color:'#33436e',font:{size:10},boxWidth:10,usePointStyle:true,padding:10}},tooltip:{backgroundColor:'#0f1730',padding:9,callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y.toFixed(1)+'M';}}}}}});
+    charts.split=new Chart(document.getElementById('splitChart'),{type:'bar',
+      data:{labels:['Conservative','Base','Optimistic'],datasets:[{label:'Paid',data:[SC.cons.split[0],SC.base.split[0],SC.opt.split[0]],backgroundColor:'#8390ad',borderRadius:5,barThickness:20},{label:'Earned',data:[SC.cons.split[1],SC.base.split[1],SC.opt.split[1]],backgroundColor:'#D98C7E',borderRadius:5,barThickness:20}]},
+      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,animation:{duration:prefersReduced?0:800},
+        scales:{x:{stacked:true,max:100,grid:gridL(),ticks:{color:'#6b7794',font:{size:10},callback:function(v){return v+'%';}}},y:{stacked:true,grid:{display:false},ticks:{color:'#33436e',font:{size:10}}}},
+        plugins:{legend:{position:'bottom',labels:{color:'#33436e',font:{size:11},boxWidth:11,usePointStyle:true,padding:10}},tooltip:{backgroundColor:'#0f1730',padding:9,callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.x+'%';}}}}}});
+    charts.funnel=new Chart(document.getElementById('funnelChart'),{type:'bar',
+      data:{labels:['Discover','Learn','Trust','Buy'],datasets:[{data:SC[curScenario].funnel,backgroundColor:['#1B2A4D','#5d6f9e','#c98a86','#D98C7E'],borderRadius:6}]},
+      options:{responsive:true,maintainAspectRatio:false,animation:{duration:prefersReduced?0:800},
+        scales:{x:{grid:{display:false},ticks:{color:'#33436e',font:{size:11}}},y:{grid:gridL(),ticks:{color:'#6b7794',font:{size:10},callback:function(v){return v+'M';}}}},
+        plugins:{legend:{display:false},tooltip:{backgroundColor:'#0f1730',padding:9,callbacks:{label:function(c){return c.parsed.y.toFixed(1)+'M';}}}}}});
+  }
+
+  function animateNum(id,to,dur){
+    var el=document.getElementById(id); if(!el) return;
+    var from=parseFloat(el.textContent.replace(/,/g,''))||0;
+    if(prefersReduced){ el.textContent=format(to); return; }
+    var start=performance.now();
+    function t(now){var p=Math.min(1,(now-start)/dur),e=1-Math.pow(1-p,3);el.textContent=format(from+(to-from)*e);if(p<1)requestAnimationFrame(t);else el.textContent=format(to);}
+    requestAnimationFrame(t);
+  }
+  function applyScenario(key){
+    if(!SC[key]) return; curScenario=key; var d=SC[key];
+    document.getElementById('dashNote').innerHTML=d.note;
+    document.querySelectorAll('.sc-col').forEach(function(c){ c.classList.toggle('active', c.getAttribute('data-s')===key); });
+    animateNum('k-foll',d.foll,700);animateNum('k-vcr',d.vcr,700);animateNum('k-eng',d.eng,700);animateNum('k-ugc',d.ugc,700);animateNum('k-email',d.email,700);animateNum('k-conv',d.conv,700);
+    if(charts.reach){ charts.reach.data.datasets.forEach(function(ds){var on=ds.key===key;ds.borderWidth=on?3.6:1.4;ds.fill=on;ds.borderColor=on?SC_COLOR[ds.key]:rgba(SC_COLOR[ds.key],.4);}); charts.reach.update(); }
+    if(charts.split){ var fi=SC_ORDER.indexOf(key); charts.split.data.datasets[0].backgroundColor=SC_ORDER.map(function(_,i){return i===fi?'#8390ad':rgba('#8390ad',.4);}); charts.split.data.datasets[1].backgroundColor=SC_ORDER.map(function(_,i){return i===fi?'#D98C7E':rgba('#D98C7E',.4);}); charts.split.update(); }
+    if(charts.funnel){ charts.funnel.data.datasets[0].data=d.funnel; charts.funnel.update(); }
+  }
+  var strip=document.getElementById('scStrip');
+  if(strip){ strip.addEventListener('click', function(e){ var col=e.target.closest('.sc-col'); if(col) applyScenario(col.getAttribute('data-s')); }); }
+
+  // resize charts on window resize
+  window.addEventListener('resize', function(){ for(var k in charts){ try{ charts[k].resize(); }catch(e){} } });
+
+  // auto-load drop-in images from the same folder (tries common extensions)
+  (function(){
+    var exts=['png','jpg','jpeg','webp','PNG','JPG','JPEG'];
+    document.querySelectorAll('.img-ph[data-img]').forEach(function(ph){
+      var name=ph.getAttribute('data-img'), i=0;
+      var style=ph.getAttribute('data-img-style')||'width:100%;border-radius:18px;display:block';
+      (function tryNext(){
+        if(i>=exts.length) return; // no file yet — keep the placeholder
+        var url=name+'.'+exts[i], test=new Image();
+        test.onload=function(){
+          var img=document.createElement('img');
+          img.src=url; img.alt=name; img.style.cssText=style;
+          if(ph.parentNode) ph.parentNode.replaceChild(img, ph);
+        };
+        test.onerror=function(){ i++; tryNext(); };
+        test.src=url;
+      })();
+    });
+  })();
+
+  route();
+})();
+</script>
+</body>
+</html>
